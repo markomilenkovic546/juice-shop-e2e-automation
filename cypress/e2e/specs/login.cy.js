@@ -1,166 +1,252 @@
-import Login from '../pages/login'
-import ProductListPage from '../pages/product-list-page'
+import Login from "../pages/login";
+import ProductListPage from "../pages/product-list-page";
 
 const login = new Login();
 const productListPage = new ProductListPage();
 
-
-
 beforeEach(function () {
-    cy.fixture('users').then((data) => {
+   // Load user data from a fixture file
+   cy.fixture("users").then(data => {
+      // Store the loaded data in the 'data' variable for later use
       this.data = data;
-     
-    });
-    cy.visit('/')
-    productListPage.getCloseDialogButton().click()
-    productListPage.header.getAccountButton().click()
-    productListPage.header.getLoginButton().click()
-    
-  });
+   });
+   // Visit Homepage
+   cy.visit("/");
+   // Close "Welcome" dialog
+   productListPage.getCloseDialogButton().click();
+   // Open "Account" dropdown
+   productListPage.header.getAccountButton().click();
+   // Navigate to "Login" page
+   productListPage.header.getLoginButton().click();
+});
 
-  describe('Login functionality', () => {
+describe("Login functionality", () => {
+   it("Login by submiting valid credentials", function () {
+      // Intercept the POST request
+      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login");
 
-it('Login by submiting valid credentials', function () { 
-     // Intercept the POST request
-    cy.intercept('POST', ' https://juice-shop.herokuapp.com/rest/user/login').as('login');
-    login.getEmailField().type(this.data.email);
-    login.getPasswordField().type(this.data.password);
-    //Login with valid credentials
-    login.getSubmitButton().click();
-    //Click on the account button
-    productListPage.header.getAccountButton().click();
-    productListPage.header.getAccountDropDown().find('span').contains(this.data.email);
-    cy.wait('@login').then(interception => {
-    const requestBody = interception.request.body
-    const postedEmail = requestBody.email 
-    const postedPassword = requestBody.password
-    cy.wrap(interception).its("response.statusCode").should('eq',200);
-    assert(postedEmail === this.data.email, `"Email is correctly posted: ${postedEmail}`);
-    assert(postedPassword === this.data.password, `"Password is correctly posted: ${postedPassword}`);
-       
-})
-})
+      // Enter the valid email into the "Email" field
+      login.getEmailField().type(this.data.email);
 
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(this.data.password);
 
-it('Login Attempt with invalid password should Fail ', function () { 
-    // Intercept the POST request
-   cy.intercept('POST', ' https://juice-shop.herokuapp.com/rest/user/login').as('login')
-    login.getEmailField().type(this.data.email)
-    login.getPasswordField().type(this.data.invalidPassword)
-    //Submit login form with invalid password
-    login.getSubmitButton().click()
-   cy.wait('@login').then(interception => {
-   cy.wrap(interception).its("response.statusCode").should('eq',401)
-})
-   cy.get('.mat-card').contains('Invalid email or password.')
-})
+      // Login with valid credentials
+      login.getSubmitButton().click();
 
+      // Click on the account button
+      productListPage.header.getAccountButton().click();
 
-it('Login Attempt with invalid Email should Fail ', function () { 
-    // Intercept the POST request
-   cy.intercept('POST', ' https://juice-shop.herokuapp.com/rest/user/login').as('login')
-    login.getEmailField().type(this.data.invalidEmail)
-    login.getPasswordField().type(this.data.password)
-    //Submit login form with invalid password
-    login.getSubmitButton().click()
-   cy.wait('@login').then(interception => {
-   cy.wrap(interception).its("response.statusCode").should('eq',401)
-})
-   login.getLoginModal().contains('Invalid email or password.')
-})
+      // Verify that the correct email is displayed within the "Account" dropdown
+      productListPage.header.getAccountDropDown().find("span").contains(this.data.email);
 
-it('Login attempt with blank field should Fail ', function () { 
-    login.getSubmitButton().should('be.disabled')
+      // Store data from the intercepted "Login" request
+      cy.wait("@login").then(interception => {
+         const requestBody = interception.request.body;
+         const postedEmail = requestBody.email;
+         const postedPassword = requestBody.password;
 
-})
+         // Verify that response status code is 200
+         cy.wrap(interception).its("response.statusCode").should("eq", 200);
 
+         // Verify that correct email is posted
+         assert(postedEmail === this.data.email, `"Correct Email is posted: ${postedEmail}`);
 
-it('Should not allow login with space as a first character ', function () { 
-    cy.intercept('POST', ' https://juice-shop.herokuapp.com/rest/user/login').as('login')
-    login.getEmailField().type(' ',' ')
-    login.getPasswordField().type(this.data.password)
-   
-    login.getSubmitButton().click()
-    cy.wait('@login').then(interception => {
-        cy.wrap(interception).its("response.statusCode").should('eq',401)
-     })
-    login.getLoginModal().contains('Invalid email or password.')
-
-})
-it('Should show the password', function () {
-    login.getPasswordField().type(this.data.password)
-    login.getShowPasswordButton().click()
-    login.getPasswordField().should('have.attr', 'type', 'text')
-
-})
-
-it('Should hide the password', function () {
-    login.getPasswordField().type(this.data.password)
-    login.getShowPasswordButton().click()
-    login.getPasswordField().should('have.attr', 'type', 'text')
-    login.getShowPasswordButton().click()
-    login.getPasswordField().should('have.attr', 'type', 'password')
-
-})
-
-
-it("Should navigate to Signup page", function() {
-    login.getSignUpLink().click()
-    cy.url().should('include', '/register')
-})
-})
+         // Verify that correct password is posted
+         assert(postedPassword === this.data.password, `"Correct Password is posted: ${postedPassword}`);
+      });
+   });
 
 
 
+   it("Login Attempt with invalid password should Fail ", function () {
+      // Intercept the POST request
+      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login");
+      //Enter the valid email into the "Email" field
+      login.getEmailField().type(this.data.email);
 
-describe('Element existence tests', () => {
+      // Enter the invalid password into the "Email" field
+      login.getPasswordField().type(this.data.invalidPassword);
 
-it('Verifies that the h1 exists and contains corerct text', function() {
-   cy.get('h1').should('have.text', 'Login')
+      // Submit login form with invalid password
+      login.getSubmitButton().click();
 
-})
+      // Wait for the 'login' request to be intercepted and resolved
+      cy.wait("@login").then(interception => {
+         // Veify that the statusCode is equal to 401
+         cy.wrap(interception).its("response.statusCode").should("eq", 401);
 
-it('Verifies that the "Email" field exists', function() {
-    login.getEmailField()
-    .should('exist')
-    .and('have.attr', 'name', 'email')
- 
- })
-
- it('Verifies that the "Password" field exists', function() {
-    login.getPasswordField()
-    .should('exist')
-    .and('have.attr', 'name', 'password')
- 
- })
-
- it('Verifies that the "Forgot your password?" link exists', function() {
-    login.getForgetYourPasswordLink()
-    .should('exist')
-    .and('have.attr', 'href', '#/forgot-password')
- 
- })
-
- it('Verifies that the "Login" button exists', function() {
-    login.getSubmitButton()
-    .should('exist')
- })
-
- it('Verifies that the "Remember me" checkbox exists', function() {
-    login.getRememberMe()
-    .should('exist')
- })
-
- it('Verifies that the "Ligin with Google" button exists', function() {
-    login.getLoginWithGoogleButton()
-    .should('exist')
- })
+      });
+      // Verify that 'Invalid email or password.' text is displayed
+      login.getInvalidCredentialsText().contains("Invalid email or password.");
+   });
 
 
- it('Verifies that the "Not yet a customer?" link exists', function() {
-    login.getSignUpLink()
-    .should('exist')
- })
- 
-})
 
+   it("Login Attempt with invalid Email should Fail ", function () {
+      // Intercept the POST request
+      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login");
+
+      // Enter the invalid email into the "Email" field
+      login.getEmailField().type(this.data.invalidEmail);
+
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(this.data.password);
+
+      // Submit login form with invalid password
+      login.getSubmitButton().click();
+
+      // Wait for the 'login' request to be intercepted and resolved
+      cy.wait("@login").then(interception => {
+         // Veify that the statusCode is equal to 401
+         cy.wrap(interception).its("response.statusCode").should("eq", 401);
+      });
+      // Verify that 'Invalid email or password.' text is displayed
+      login.getLoginModal().contains("Invalid email or password.");
+   });
+
+
+   it("Login attempt with both blank fields should Fail ", function () {
+      //Verify that "Login" button is disabled if the input fields are blank
+      login.getSubmitButton().should("be.disabled");
+   });
+
+
+
+   it("Should not allow login with space as a first character in email field ", function () {
+      // Intercept the POST request
+      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login")
+
+      // Enter "Space" as a only character into the email field
+      login.getEmailField().type(" ");
+
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(this.data.password);
+
+      // Submit login form with invalid password
+      login.getSubmitButton().click();
+
+      // Wait for the 'login' request to be intercepted and resolved
+      cy.wait("@login").then(interception => {
+         // Veify that the statusCode is equal to 401
+         cy.wrap(interception).its("response.statusCode").should("eq", 401);
+      });
+      // Verify that 'Invalid email or password.' text is displayed
+      login.getLoginModal().contains("Invalid email or password.");
+   });
+
+
+
+   it("Should not allow login with space as a first character in password field ", function () {
+      // Intercept the POST request
+      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login")
+
+      // Enter "Space" as a only character into the email field
+      login.getEmailField().type(this.data.email);
+
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(" ");
+
+      // Submit login form with invalid password
+      login.getSubmitButton().click();
+
+      // Wait for the 'login' request to be intercepted and resolved
+      cy.wait("@login").then(interception => {
+         // Veify that the statusCode is equal to 401
+         cy.wrap(interception).its("response.statusCode").should("eq", 401);
+      });
+      // Verify that 'Invalid email or password.' text is displayed
+      login.getLoginModal().contains("Invalid email or password.");
+   });
+
+   it("Password should be hidden by default", function () {
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(this.data.password);
+
+      // Verify that "Password" field has atrubute type="text"
+      login.getPasswordField().should("have.attr", "type", "password");
+   });
+
+   it("Should show the password", function () {
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(this.data.password);
+
+      // Click on the "Show password" button
+      login.getShowPasswordButton().click();
+
+      // Verify that "Password" field has atrubute type="text"
+      login.getPasswordField().should("have.attr", "type", "text");
+   });
+
+
+   it("Should hide the password", function () {
+      // Enter the valid password into the "Password" field
+      login.getPasswordField().type(this.data.password);
+
+      // Click on the "Show password" button
+      login.getShowPasswordButton().click();
+
+      // Verify that "Password" field has atrubute type="text"
+      login.getPasswordField().should("have.attr", "type", "text");
+
+      // Click on the "Show password" button
+      login.getShowPasswordButton().click();
+
+      // Verify that "Password" field has atrubute type="text"
+      login.getPasswordField().should("have.attr", "type", "password");
+   });
+
+
+
+   it("Should navigate to Signup page", function () {
+      // CLick on the "Not yet a customer?" link
+      login.getSignUpLink().click();
+
+      // Verify that Signup page is open
+      cy.url().should("include", "/register");
+   });
+});
+
+describe("Element existence tests", () => {
+   it("Verifies that the h1 exists and contains corerct text", function () {
+      // Verify that h1 exist and contains correct text
+      cy.get("h1")
+      .should("exist")
+      .and("have.text", "Login");
+   });
+
+   it('Verifies that the "Email" field exists', function () {
+      // Verify that email field exist
+      login.getEmailField().should("exist").and("have.attr", "name", "email");
+   });
+
+   it('Verifies that the "Password" field exists', function () {
+      // Verify that password field exist
+      login.getPasswordField().should("exist").and("have.attr", "name", "password");
+   });
+
+   it('Verifies that the "Forgot your password?" link exists', function () {
+      // Verify that "Forgot your password?" link exists
+      login.getForgetYourPasswordLink().should("exist").and("have.attr", "href", "#/forgot-password");
+   });
+
+   it('Verifies that the "Login" button exists', function () {
+      // Verify that the "Login" button exists
+      login.getSubmitButton().should("exist");
+   });
+
+   it('Verifies that the "Remember me" checkbox exists', function () {
+      // Verify that the "Remember me" checkbox exists
+      login.getRememberMe().should("exist");
+   });
+
+   it('Verifies that the "Ligin with Google" button exists', function () {
+      // Verify that the "Ligin with Google" button exists
+      login.getLoginWithGoogleButton().should("exist");
+   });
+
+   it('Verifies that the "Not yet a customer?" link exists', function () {
+      //Verifies that the "Not yet a customer?" link exists
+      login.getSignUpLink().should("exist");
+   });
+});
