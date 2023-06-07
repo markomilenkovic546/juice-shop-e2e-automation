@@ -6,10 +6,11 @@ const productListPage = new ProductListPage();
 
 Cypress.Commands.add("login", (email, password) => {
   cy.visit("/");
-  cy.get(".close-dialog").click();
+  login.getCloseDialogButton().click();
   productListPage.header.getAccountButton().click();
   productListPage.header.getLoginButton().click();
   login.getEmailField().type(email);
   login.getPasswordField().type(password);
   login.getSubmitButton().click();
 });
+

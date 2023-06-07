@@ -115,22 +115,22 @@ describe("Sign Up functionalites", () => {
     cy.url().should("include", "/register");
 
     // Enter the valid email into the "Email" field
-    signup.getEmailField().type(this.user1_data.email);
+    signup.getEmailField().type(this.user2_data.email);
 
     // Enter the valid email into the "Email" field
-    signup.getEmailField().should("have.value", this.user1_data.email);
+    signup.getEmailField().should("have.value", this.user2_data.email);
 
     // Enter the valid password into the "Password" field
-    signup.getPasswordField().type(this.user1_data.password);
+    signup.getPasswordField().type(this.user2_data.password);
 
     // Verify that "Password" field displays corerct password
-    signup.getPasswordField().should("have.value", this.user1_data.password);
+    signup.getPasswordField().should("have.value", this.user2_data.password);
 
     // Enter the valid password into the "Repeat field password field"
-    signup.getRepeatPasswordFiled().type(this.user1_data.password);
+    signup.getRepeatPasswordFiled().type(this.user2_data.password);
 
     // Verify that "Repeat password" field displays corerct password
-    signup.getRepeatPasswordFiled().should("have.value", this.user1_data.password);
+    signup.getRepeatPasswordFiled().should("have.value", this.user2_data.password);
 
     // Wait 1500 miliseconds
     cy.wait(1500);
@@ -145,10 +145,10 @@ describe("Sign Up functionalites", () => {
     signup.getChoosenSecurityQuestion().should("have.text", "Number of one of your customer or ID cards?");
 
     // Type answer into the "Secutiry answer" field
-    signup.getSecurityAnswerField().type(this.user1_data.securityAnswer);
+    signup.getSecurityAnswerField().type(this.user2_data.securityAnswer);
 
     // Verify that the "Secutiry answer" field corerctly displays typed text
-    signup.getSecurityAnswerField().should("have.value", this.user1_data.securityAnswer);
+    signup.getSecurityAnswerField().should("have.value", this.user2_data.securityAnswer);
 
     // Intercept the "Sign up" POST request
     cy.intercept("POST", " https://juice-shop.herokuapp.com/api/Users").as("signup");
@@ -173,19 +173,19 @@ describe("Sign Up functionalites", () => {
       cy.wrap(interception).its("response.statusCode").should("eq", 200);
 
       // Verify that correct email is posted
-      assert(postedEmail === this.user1_data.email, `"Correct Email is posted: ${postedEmail}`);
+      assert(postedEmail === this.user2_data.email, `"Correct Email is posted: ${postedEmail}`);
 
       // Verify that correct password is posted
-      assert(postedPassword === this.user1_data.password, `"Correct Password is posted: ${postedPassword}`);
+      assert(postedPassword === this.user2_data.password, `"Correct Password is posted: ${postedPassword}`);
 
       // Verify that correct repeated password is posted
-      assert(postedRepeatedPassword === this.user1_data.password, `"Correct Repeated Password is posted: ${postedRepeatedPassword}`);
+      assert(postedRepeatedPassword === this.user2_data.password, `"Correct Repeated Password is posted: ${postedRepeatedPassword}`);
 
       // Verify that security question is posted
       assert(postedSecurityQuestion === "Number of one of your customer or ID cards?", `"Correct Security Question is posted: ${postedSecurityQuestion}`);
       
       // Verify that security answer is posted
-      assert(postedSecurityAnswer === this.user1_data.securityAnswer, `"Correct Security Question is posted: ${postedSecurityAnswer}`);
+      assert(postedSecurityAnswer === this.user2_data.securityAnswer, `"Correct Security Question is posted: ${postedSecurityAnswer}`);
   
     });
 
@@ -197,22 +197,22 @@ describe("Sign Up functionalites", () => {
     cy.url().should("include", "/register");
 
     // Enter the valid email into the "Email" field
-    signup.getEmailField().type(this.user1_data.email);
+    signup.getEmailField().type(this.user2_data.email);
 
     // Enter the valid email into the "Email" field
-    signup.getEmailField().should("have.value", this.user1_data.email);
+    signup.getEmailField().should("have.value", this.user2_data.email);
 
     // Enter the valid password into the "Password" field
-    signup.getPasswordField().type(this.user1_data.password);
+    signup.getPasswordField().type(this.user2_data.password);
 
     // Verify that "Password" field displays corerct password
-    signup.getPasswordField().should("have.value", this.user1_data.password);
+    signup.getPasswordField().should("have.value", this.user2_data.password);
 
     // Enter the valid password into the "Repeat field password field"
-    signup.getRepeatPasswordFiled().type(this.user1_data.password);
+    signup.getRepeatPasswordFiled().type(this.user2_data.password);
 
     // Verify that "Repeat password" field displays corerct password
-    signup.getRepeatPasswordFiled().should("have.value", this.user1_data.password);
+    signup.getRepeatPasswordFiled().should("have.value", this.user2_data.password);
 
     // Wait 1500 miliseconds
     cy.wait(1500);
@@ -227,10 +227,10 @@ describe("Sign Up functionalites", () => {
     signup.getChoosenSecurityQuestion().should("have.text", "Number of one of your customer or ID cards?");
 
     // Type answer into the "Secutiry answer" field
-    signup.getSecurityAnswerField().type(this.user1_data.securityAnswer);
+    signup.getSecurityAnswerField().type(this.user2_data.securityAnswer);
 
     // Verify that the "Secutiry answer" field corerctly displays typed text
-    signup.getSecurityAnswerField().should("have.value", this.user1_data.securityAnswer);
+    signup.getSecurityAnswerField().should("have.value", this.user2_data.securityAnswer);
 
     // Submit the "Signup" form
     signup.getRegisterButton().click();

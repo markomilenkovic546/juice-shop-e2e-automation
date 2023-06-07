@@ -12,10 +12,13 @@ beforeEach(function () {
    });
    // Visit Homepage
    cy.visit("/");
+
    // Close "Welcome" dialog
    productListPage.getCloseDialogButton().click();
+
    // Open "Account" dropdown
    productListPage.header.getAccountButton().click();
+
    // Navigate to "Login" page
    productListPage.header.getLoginButton().click();
 });
@@ -212,7 +215,7 @@ describe("Login functionalies", () => {
       // Enter the valid password into the "Password" field
       login.getPasswordField().type(this.data.password);
 
-      // Verify that "Password" field has atrubute type="text"
+      // Verify that "Password" field has attribute type="text"
       login.getPasswordField().should("have.attr", "type", "password");
    });
 
@@ -223,7 +226,7 @@ describe("Login functionalies", () => {
       // Click on the "Show password" button
       login.getShowPasswordButton().click();
 
-      // Verify that "Password" field has atrubute type="text"
+      // Verify that "Password" field has attribute type="text"
       login.getPasswordField().should("have.attr", "type", "text");
    });
 
@@ -235,13 +238,13 @@ describe("Login functionalies", () => {
       // Click on the "Show password" button
       login.getShowPasswordButton().click();
 
-      // Verify that "Password" field has atrubute type="text"
+      // Verify that "Password" field has attribute type="text"
       login.getPasswordField().should("have.attr", "type", "text");
 
       // Click on the "Show password" button
       login.getShowPasswordButton().click();
 
-      // Verify that "Password" field has atrubute type="text"
+      // Verify that "Password" field has attribute type="text"
       login.getPasswordField().should("have.attr", "type", "password");
    });
 

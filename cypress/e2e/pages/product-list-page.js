@@ -33,16 +33,20 @@ export default class ProductListPage {
     return cy.get(".close-dialog");
   }
 
-  /*
-    login(email,password) {
-        cy.visit('/')
-        cy.get('.close-dialog').click()
-        cy.get('#navbarAccount').click()
-        cy.get('#navbarLoginButton').click()
-        cy.get('[name="email"]').type(email)
-        cy.get('[name="password"]').type(password)
-        cy.get('#loginButton').click()
-        
-    }
-*/
+  getProductDiv() {
+    return cy.get(".mat-card.mat-focus-indicator.mat-elevation-z6.ribbon-card")
+  }
+
+  getNextPageButton() {
+    return cy.get('.mat-paginator-navigation-next')
+  }
+
+  getPreviousPageButton() {
+    return cy.get('.mat-paginator-navigation-previous')
+  }
+
+  getItemsPerPageDropDown() {
+    return cy.get(".mat-form-field-infix.ng-tns-c21-7")
+  }
+
 }
