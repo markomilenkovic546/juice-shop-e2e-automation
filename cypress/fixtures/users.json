@@ -1,7 +1,121 @@
+[
 {
-  "email": "Erin_Jennson692@bu2lo.digital",
-  "password": "123456",
+  "email": "email1@gmail.com",
+  "password": "12345",
   "invalidEmail": "Erin_Jennson69@bu2lo.digital",
   "invalidPassword": "123",
-  "securityAnswer": "4567"
-}
+  "securityAnswer": "4567",
+  "tooLongPassword": "11111111111111111111111111111111111111111",
+  "tooShortPassword": "1234",
+  "longPassword": "1111111111111111111111111111111111111111"
+
+},
+
+{
+
+"email": "Erin_Jennson692@bu2lo.digital",
+"password": "123456",
+"invalidEmail": "Erin_Jennson69@bu2lo.digital",
+"invalidPassword": "123",
+"securityAnswer": "4567",
+"tooLongPassword": "11111111111111111111111111111111111111111",
+"tooShortPassword": "1234",
+"longPassword": "1111111111111111111111111111111111111111"
+},
+
+{
+
+  "email": "email3@gmail.com",
+  "password": "12345",
+  "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+  "invalidPassword": "123",
+  "securityAnswer": "4567",
+  "tooLongPassword": "11111111111111111111111111111111111111111",
+  "tooShortPassword": "1234",
+  "longPassword": "1111111111111111111111111111111111111111"
+  },
+
+  {
+
+    "email": "email4@gmail.com",
+    "password": "12345",
+    "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+    "invalidPassword": "123",
+    "securityAnswer": "4567",
+    "tooLongPassword": "11111111111111111111111111111111111111111",
+    "tooShortPassword": "1234",
+    "longPassword": "1111111111111111111111111111111111111111"
+    },
+
+    {
+
+      "email": "email5@gmail.com",
+      "password": "12345",
+      "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+      "invalidPassword": "123",
+      "securityAnswer": "4567",
+      "tooLongPassword": "11111111111111111111111111111111111111111",
+      "tooShortPassword": "1234",
+      "longPassword": "1111111111111111111111111111111111111111"
+      },
+
+      {
+
+        "email": "email6@gmail.com",
+        "password": "12345",
+        "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+        "invalidPassword": "123",
+        "securityAnswer": "4567",
+        "tooLongPassword": "11111111111111111111111111111111111111111",
+        "tooShortPassword": "1234",
+        "longPassword": "1111111111111111111111111111111111111111"
+        },
+
+        {
+
+          "email": "email7@gmail.com",
+          "password": "12345",
+          "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+          "invalidPassword": "123",
+          "securityAnswer": "4567",
+          "tooLongPassword": "11111111111111111111111111111111111111111",
+          "tooShortPassword": "1234",
+          "longPassword": "1111111111111111111111111111111111111111"
+          },
+
+          {
+
+            "email": "email8@gmail.com",
+            "password": "12345",
+            "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+            "invalidPassword": "123",
+            "securityAnswer": "4567",
+            "tooLongPassword": "11111111111111111111111111111111111111111",
+            "tooShortPassword": "1234",
+            "longPassword": "1111111111111111111111111111111111111111"
+            },
+
+            {
+
+              "email": "email9@gmail.com",
+              "password": "12345",
+              "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+              "invalidPassword": "123",
+              "securityAnswer": "4567",
+              "tooLongPassword": "11111111111111111111111111111111111111111",
+              "tooShortPassword": "1234",
+              "longPassword": "1111111111111111111111111111111111111111"
+              },
+
+              {
+
+                "email": "email10@gmail.com",
+                "password": "12345",
+                "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+                "invalidPassword": "123",
+                "securityAnswer": "4567",
+                "tooLongPassword": "11111111111111111111111111111111111111111",
+                "tooShortPassword": "1234",
+                "longPassword": "1111111111111111111111111111111111111111"
+                }
+]

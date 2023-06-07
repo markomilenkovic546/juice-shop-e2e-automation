@@ -8,7 +8,7 @@ beforeEach(function () {
    // Load user data from a fixture file
    cy.fixture("users").then(data => {
       // Store the loaded data in the 'data' variable for later use
-      this.data = data;
+      this.data = data[1];
    });
    // Visit Homepage
    cy.visit("/");
@@ -20,10 +20,56 @@ beforeEach(function () {
    productListPage.header.getLoginButton().click();
 });
 
-describe("Login functionality", () => {
+
+describe("Element existence tests", () => {
+   it("Verifies that the h1 exists and contains corerct text", function () {
+      // Verify that h1 exist and contains correct text
+      cy.get("h1")
+         .should("exist")
+         .and("have.text", "Login");
+   });
+
+   it('Verifies that the "Email" field exists', function () {
+      // Verify that email field exist
+      login.getEmailField().should("exist").and("have.attr", "name", "email");
+   });
+
+   it('Verifies that the "Password" field exists', function () {
+      // Verify that password field exist
+      login.getPasswordField().should("exist").and("have.attr", "name", "password");
+   });
+
+   it('Verifies that the "Forgot your password?" link exists', function () {
+      // Verify that "Forgot your password?" link exists
+      login.getForgetYourPasswordLink().should("exist").and("have.attr", "href", "#/forgot-password");
+   });
+
+   it('Verifies that the "Login" button exists', function () {
+      // Verify that the "Login" button exists
+      login.getSubmitButton().should("exist");
+   });
+
+   it('Verifies that the "Remember me" checkbox exists', function () {
+      // Verify that the "Remember me" checkbox exists
+      login.getRememberMe().should("exist");
+   });
+
+   it('Verifies that the "Ligin with Google" button exists', function () {
+      // Verify that the "Ligin with Google" button exists
+      login.getLoginWithGoogleButton().should("exist");
+   });
+
+   it('Verifies that the "Not yet a customer?" link exists', function () {
+      //Verifies that the "Not yet a customer?" link exists
+      login.getSignUpLink().should("exist");
+   });
+});
+
+
+
+
+describe("Login functionalies", () => {
    it("Login by submiting valid credentials", function () {
-      // Intercept the POST request
-      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login");
 
       // Enter the valid email into the "Email" field
       login.getEmailField().type(this.data.email);
@@ -31,7 +77,10 @@ describe("Login functionality", () => {
       // Enter the valid password into the "Password" field
       login.getPasswordField().type(this.data.password);
 
-      // Login with valid credentials
+      // Intercept the POST request
+      cy.intercept("POST", " https://juice-shop.herokuapp.com/rest/user/login").as("login");
+
+      // Click on the "Login" button
       login.getSubmitButton().click();
 
       // Click on the account button
@@ -207,46 +256,3 @@ describe("Login functionality", () => {
    });
 });
 
-describe("Element existence tests", () => {
-   it("Verifies that the h1 exists and contains corerct text", function () {
-      // Verify that h1 exist and contains correct text
-      cy.get("h1")
-      .should("exist")
-      .and("have.text", "Login");
-   });
-
-   it('Verifies that the "Email" field exists', function () {
-      // Verify that email field exist
-      login.getEmailField().should("exist").and("have.attr", "name", "email");
-   });
-
-   it('Verifies that the "Password" field exists', function () {
-      // Verify that password field exist
-      login.getPasswordField().should("exist").and("have.attr", "name", "password");
-   });
-
-   it('Verifies that the "Forgot your password?" link exists', function () {
-      // Verify that "Forgot your password?" link exists
-      login.getForgetYourPasswordLink().should("exist").and("have.attr", "href", "#/forgot-password");
-   });
-
-   it('Verifies that the "Login" button exists', function () {
-      // Verify that the "Login" button exists
-      login.getSubmitButton().should("exist");
-   });
-
-   it('Verifies that the "Remember me" checkbox exists', function () {
-      // Verify that the "Remember me" checkbox exists
-      login.getRememberMe().should("exist");
-   });
-
-   it('Verifies that the "Ligin with Google" button exists', function () {
-      // Verify that the "Ligin with Google" button exists
-      login.getLoginWithGoogleButton().should("exist");
-   });
-
-   it('Verifies that the "Not yet a customer?" link exists', function () {
-      //Verifies that the "Not yet a customer?" link exists
-      login.getSignUpLink().should("exist");
-   });
-});

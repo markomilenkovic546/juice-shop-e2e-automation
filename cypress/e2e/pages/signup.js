@@ -5,7 +5,7 @@ class Signup {
   }
 
   //Get "password" field
-  getPasswordFiled() {
+  getPasswordField() {
     return cy.get("#passwordControl");
   }
   //Get "Repeat password field"
@@ -31,6 +31,26 @@ class Signup {
 
   getRegisterButton() {
     return cy.get("#registerButton");
+  }
+
+  getEmailDiv() {
+    return cy.get('.mat-form-field-invalid > .mat-form-field-wrapper')
+  }
+
+  getPasswordDiv() {
+    return cy.get('.mat-form-field-wrapper')
+  }
+
+  getRepeatPasswordDiv() {
+    return cy.get(".mat-form-field-wrapper")
+  }
+
+  getPasswordAdviceToggle(){
+    return cy.get('.mat-slide-toggle-bar')
+  }
+
+  getAlreadyAcustomerLink(){
+    return cy.get("a").contains("Already a customer")
   }
 }
 
