@@ -528,7 +528,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })
@@ -575,7 +575,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })
@@ -623,7 +623,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })
@@ -671,7 +671,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })
@@ -718,7 +718,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })
@@ -766,7 +766,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })
@@ -814,7 +814,7 @@ describe("Sign Up functionalites", () => {
     signup.getRegisterButton().should("not.have.attr", "disabled", "disabled");
 
     // Verify that "Registration completed successfully. You can now log in." message is shown
-    //cy.get("body").contains("Registration completed successfully. You can now log in.")
+    cy.get("body").contains("Registration completed successfully. You can now log in.")
 
 
   })

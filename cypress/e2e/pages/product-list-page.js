@@ -1,8 +1,10 @@
 import Header from "../components/header";
+import ProductDetailsModal from "../components/product-details-modal";
 
 export default class ProductListPage {
   constructor() {
     this.header = new Header();
+    this.productDetailsModal = new ProductDetailsModal()
   }
 
   //Get "email" field
@@ -47,6 +49,12 @@ export default class ProductListPage {
 
   getItemsPerPageDropDown() {
     return cy.get(".mat-form-field-infix.ng-tns-c21-7")
+  }
+
+
+
+  getReviewsDropDown() {
+    return cy.get('#mat-expansion-panel-header-1')
   }
 
 }
