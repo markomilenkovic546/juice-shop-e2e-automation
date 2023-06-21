@@ -4,7 +4,7 @@ import ProductDetailsModal from "../components/product-details-modal";
 export default class ProductListPage {
   constructor() {
     this.header = new Header();
-    this.productDetailsModal = new ProductDetailsModal()
+    this.productDetailsModal = new ProductDetailsModal();
   }
 
   //Get "email" field
@@ -36,25 +36,34 @@ export default class ProductListPage {
   }
 
   getProductDiv() {
-    return cy.get(".mat-card.mat-focus-indicator.mat-elevation-z6.ribbon-card")
+    return cy.get(".mat-card.mat-focus-indicator.mat-elevation-z6.ribbon-card");
   }
 
   getNextPageButton() {
-    return cy.get('.mat-paginator-navigation-next')
+    return cy.get(".mat-paginator-navigation-next");
   }
 
   getPreviousPageButton() {
-    return cy.get('.mat-paginator-navigation-previous')
+    return cy.get(".mat-paginator-navigation-previous");
   }
 
   getItemsPerPageDropDown() {
-    return cy.get(".mat-form-field-infix.ng-tns-c21-7")
+    return cy.get(".mat-select-arrow-wrapper");
   }
-
-
 
   getReviewsDropDown() {
-    return cy.get('#mat-expansion-panel-header-1')
+    return cy.get("#mat-expansion-panel-header-1");
   }
 
+  getOpenItemsPerPageDropdown() {
+    return cy.get("#mat-select-6-panel");
+  }
+
+  getSelectedItemsPerPageOption() {
+    return cy.get('.mat-select-min-line')
+  }
+
+  getCurrentPageInfo() {
+    return cy.get('.mat-paginator-range-label')
+  }
 }

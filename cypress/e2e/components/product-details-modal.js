@@ -18,6 +18,10 @@ class ProductDetailsModal {
       getReviewsDropDown() {
         return cy.get('.mat-expansion-panel-header-title')
       }
+
+      getCloseModalButton() {
+        return cy.get('button').contains("Close")
+      }
   }
   
   export default ProductDetailsModal;
