@@ -25,6 +25,7 @@ export default class Login {
     return cy.get(".mat-card");
   }
 
+  // 
   getSignUpLink() {
     return cy.get("#newCustomerLink > .primary-link");
   }

@@ -13,6 +13,11 @@ class Header {
   getLoginButton() {
     return cy.get("#navbarLoginButton");
   }
+
+  //Navigate to cart page
+  getCartIcon() {
+    return cy.get('.mat-toolbar-row > .mat-focus-indicator.ng-star-inserted')
+  }
 }
 
 export default Header;

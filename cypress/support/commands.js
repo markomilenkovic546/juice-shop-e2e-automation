@@ -1,8 +1,10 @@
 import Login from "../e2e/pages/product-list-page";
 import ProductListPage from "../e2e/pages/product-list-page";
+import Signup from "../e2e/pages/signup";
 
 const login = new Login();
 const productListPage = new ProductListPage();
+const signup = new Signup();
 
 Cypress.Commands.add("login", (email, password) => {
   cy.visit("/");
@@ -56,3 +58,55 @@ Cypress.Commands.add('compareProductDetailsData', ($product, expectedProduct) =>
     
   
 });
+
+
+Cypress.Commands.add("submitSignupForm", (email, password, securityAnswer) => {
+    // Load users data from a users.json file
+    
+    
+  // Enter the valid email into the "Email" field
+    signup.getEmailField().type(email);
+
+    // Enter the valid password into the "Password" field
+    signup.getPasswordField().type(password);
+
+
+    // Enter the valid password into the "Repeat field password field"
+    signup.getRepeatPasswordFiled().type(password);
+
+  
+    // Wait 1500 miliseconds
+    cy.wait(1500);
+
+    // Open the "Security question" drop down
+    signup.getSecurityQuestionDropDown().click();
+
+    // Select the question "Number of one of your customer or ID cards"
+    signup.getSecurityQuestion().click();
+
+    // Type answer into the "Security answer" field
+    signup.getSecurityAnswerField().type(securityAnswer);
+
+     // Submit the "Signup" form
+     signup.getRegisterButton().click();
+    });
+
+    Cypress.Commands.add('postReview', () => {
+      // Get the actual products displayed on the UI
+    productListPage.getProductDiv().as("actualProducts");
+
+    // Open "Product details" modal for the first product
+    cy.get("@actualProducts").eq(0).find(".mat-tooltip-trigger.product").click();
+
+    cy.wait(1500);
+    // Type review into the the Review text box
+    productListPage.productDetailsModal.getReviewMessageTextBox().type("such a nice juice");
+
+    cy.wait(1500);
+
+    // Submit review
+    productListPage.productDetailsModal.getSubmitReviewButton().click();
+
+    // Expand "Reviews" drop down
+    productListPage.productDetailsModal.getReviewsDropDown().click();
+    });

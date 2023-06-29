@@ -27,43 +27,50 @@ export default class ProductListPage {
     return cy.get(".mat-card");
   }
 
-  getSignUpLink() {
-    return cy.get("#newCustomerLink > .primary-link");
-  }
-
+  // Get close dialog button
   getCloseDialogButton() {
     return cy.get(".close-dialog");
   }
 
+  // Get product article
   getProductDiv() {
     return cy.get(".mat-card.mat-focus-indicator.mat-elevation-z6.ribbon-card");
   }
 
+  // Get Next page button
   getNextPageButton() {
     return cy.get(".mat-paginator-navigation-next");
   }
 
+  // Get previous button
   getPreviousPageButton() {
     return cy.get(".mat-paginator-navigation-previous");
   }
 
+  // Get items per page closed drop-down
   getItemsPerPageDropDown() {
     return cy.get(".mat-select-arrow-wrapper");
   }
 
+  // Get reviews drop-down
   getReviewsDropDown() {
     return cy.get("#mat-expansion-panel-header-1");
   }
 
+  // Get expanded Items per page drop-down
   getOpenItemsPerPageDropdown() {
     return cy.get("#mat-select-6-panel");
   }
 
+  // Get selected "Items per page" option from drop-down
   getSelectedItemsPerPageOption() {
     return cy.get('.mat-select-min-line')
   }
 
+  // Get info about currently applied pagination
   getCurrentPageInfo() {
     return cy.get('.mat-paginator-range-label')
   }
+
+
 }

@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": "email"
+      },
+      "password": {
+        "type": "string",
+        "minLength": 5
+      },
+      "passwordRepeat": {
+        "type": "string",
+        "minLength": 5
+      },
+      "securityQuestion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "question": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "question", "createdAt", "updatedAt"]
+      },
+      "securityAnswer": {
+        "type": "string"
+      }
+    },
+    "required": ["email", "password", "passwordRepeat", "securityQuestion", "securityAnswer"]
+  }

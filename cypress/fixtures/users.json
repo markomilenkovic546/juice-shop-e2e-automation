@@ -117,5 +117,31 @@
                 "tooLongPassword": "11111111111111111111111111111111111111111",
                 "tooShortPassword": "1234",
                 "longPassword": "1111111111111111111111111111111111111111"
-                }
+                },
+
+                {
+
+                  "email": "email11333443313@gmail.com",
+                  "password": "1234567",
+                  "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+                  "invalidPassword": "123",
+                  "securityAnswer": "4567",
+                  "tooLongPassword": "11111111111111111111111111111111111111111",
+                  "tooShortPassword": "1234",
+                  "longPassword": "1111111111111111111111111111111111111111",
+                  "SecurityQuestionId": 13
+                  },
+
+                  {
+
+                    "email": "email113534433313@gmail.com",
+                    "password": "1234567",
+                    "invalidEmail": "Erin_Jennson69@bu2lo.digital",
+                    "invalidPassword": "123",
+                    "securityAnswer": "4567",
+                    "tooLongPassword": "11111111111111111111111111111111111111111",
+                    "tooShortPassword": "1234",
+                    "longPassword": "1111111111111111111111111111111111111111",
+                    "SecurityQuestionId": 13
+                    }
 ]

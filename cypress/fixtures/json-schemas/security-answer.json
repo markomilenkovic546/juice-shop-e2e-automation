@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "properties": {
+      "UserId": {
+        "type": "integer"
+      },
+      "answer": {
+        "type": "string"
+      },
+      "SecurityQuestionId": {
+        "type": "integer"
+      }
+    },
+    "required": ["UserId", "answer", "SecurityQuestionId"]
+  }
+  
