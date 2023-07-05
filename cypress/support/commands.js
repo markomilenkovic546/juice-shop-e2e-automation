@@ -1,10 +1,12 @@
 import Login from "../e2e/pages/product-list-page";
 import ProductListPage from "../e2e/pages/product-list-page";
 import Signup from "../e2e/pages/signup";
+import Cart from "../e2e/pages/cart";
 
 const login = new Login();
 const productListPage = new ProductListPage();
 const signup = new Signup();
+const cart = new Cart();
 
 Cypress.Commands.add("login", (email, password) => {
   cy.visit("/");
@@ -109,4 +111,28 @@ Cypress.Commands.add("submitSignupForm", (email, password, securityAnswer) => {
 
     // Expand "Reviews" drop down
     productListPage.productDetailsModal.getReviewsDropDown().click();
+    });
+
+
+    Cypress.Commands.add('verifyProductDataInTheCart', (expectedProduct, productIndex) => {
+      cart.getProductRow().as('product-row')
+      cy.get('@product-row').eq(productIndex).then(product => {
+
+        // Verify product name in the cart
+        cy.wrap(product)
+          .find(".mat-cell.cdk-cell.cdk-column-product.mat-column-product.ng-star-inserted")
+          .should("contain", expectedProduct.name);
+
+          // Verify product image in the cart
+        cy.wrap(product)
+          .find("img")
+          .should("have.attr", "src", `assets/public/images/products/${expectedProduct.image}`);
+
+          // Verify product price in the cart
+        cy.wrap(product)
+        .find(".cdk-column-price")
+        .should("contain", expectedProduct.price);
+
+       
+      });
     });

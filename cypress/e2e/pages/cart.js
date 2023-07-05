@@ -20,4 +20,8 @@ export default class Cart {
   getRemoveItemButton() {
     return cy.get('.cdk-column-remove > .mat-focus-indicator')
   }
+
+  getCheckoutButton() {
+    return cy.get('#checkoutButton')
+  }
 }
