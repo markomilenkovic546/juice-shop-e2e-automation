@@ -5,20 +5,19 @@ export default class SelectAddress {
     this.header = new Header();
   }
 
-// Get "New addres" button
+  // Get "New addres" button
   getNewAddressButton() {
-    return cypress.get('[aria-label="Add a new address"]')
+    return cy.get('[aria-label="Add a new address"]');
   }
 
   // Get "Continue" button
   getContinueButton() {
-    return cy.get('[aria-label="Proceed to payment selection"]')
+    return cy.get('[aria-label="Proceed to payment selection"]');
   }
 
-// Get "Select address" radio button 
+  // Get "Select address" radio button
 
-getSelectAdressRadio() {
-return cy.get('[type="radio"]')
-}
-
+  getSelectAdressRadio() {
+    return cy.get('.mat-row > .cdk-column-Selection')
+  }
 }

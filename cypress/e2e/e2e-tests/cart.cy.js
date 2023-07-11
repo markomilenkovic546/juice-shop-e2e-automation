@@ -16,6 +16,11 @@ beforeEach(function () {
   cy.fixture("products").as("expectedProductData");
 });
 
+afterEach(() => {
+  // Clear the cart after each test
+  cy.clearCart()
+});
+
 describe("Tests which cover functionalities releated to cart", () => {
   it("Should successfully add a single item into the cart", function () {
     // Get product list
@@ -36,8 +41,6 @@ describe("Tests which cover functionalities releated to cart", () => {
       // Verify that only one item is in the cart
       cart.getProductRow().should("have.length", 1);
 
-      // Remove item from the cart
-      cart.getRemoveItemButton().eq(0).click();
     });
   });
 
@@ -217,6 +220,45 @@ describe("Tests which cover functionalities releated to cart", () => {
     cart.getRemoveItemButton().eq(0).click();
   });
 
+  it("Should successfully decrease item quantity", function () {
+    // Get product list
+    productListPage.getProductDiv().as("actualProducts");
+
+    // Add first item from the list into the cart
+    cy.get("@actualProducts").eq(0).find(".mat-button-wrapper").click();
+
+    // Open a cart
+    productListPage.header.getCartIcon().click();
+
+    // Click on the + button to increace quantity
+    cart.getProductRow().find("mat-cell button:nth-of-type(2)").click();
+
+    cy.wait(1500);
+
+     // Click on the - button to decrease quantity
+     cart.getProductRow().find("mat-cell button:nth-of-type(1)").eq(0).click();
+
+    // Verify that quantity is "1"
+    cart.getProductRow().find("mat-cell span").should("have.text", " 1");
+    cy.get("@expectedProductData").then(data => {
+      const expectedProduct = data;
+
+      cy.wait(2000);
+
+      cy.get("#price").then($totalPrice => {
+        // Store total price displayed on UI
+        const price = $totalPrice.text();
+
+        // Verify product price in the cart
+        cy.verifyProductDataInTheCart(expectedProduct[0], 0);
+        //Verify that Total price value is corerct after quantity change
+        expect(price).to.be.eq(`Total Price: ${expectedProduct[0].price}¤`);
+      });
+    });
+    // Remove item from the cart
+    cart.getRemoveItemButton().eq(0).click();
+  });
+
   it("Increasing item quantity should not affect to other items quantity and price", function () {
     // Get product list
     productListPage.getProductDiv().as("actualProducts");
@@ -261,39 +303,6 @@ describe("Tests which cover functionalities releated to cart", () => {
     cart.getRemoveItemButton().eq(0).click();
   });
 
-  it("Should successfully increase item quantity", function () {
-    // Get product list
-    productListPage.getProductDiv().as("actualProducts");
-
-    // Add first item from the list into the cart
-    cy.get("@actualProducts").eq(0).find(".mat-button-wrapper").click();
-
-    // Open a cart
-    productListPage.header.getCartIcon().click();
-
-    // Click on the + button to increace quantity
-    cart.getProductRow().find("mat-cell button:nth-of-type(2)").click();
-
-    cy.wait(1500);
-
-    // Verify that quantity is "2"
-    cart.getProductRow().find("mat-cell span").should("have.text", " 2");
-    cy.get("@expectedProductData").then(data => {
-      const expectedProduct = data;
-
-      cy.wait(2000);
-
-      cy.get("#price").then($totalPrice => {
-        // Store total price displayed on UI
-        const price = $totalPrice.text();
-
-        // Verify product price in the cart
-        cy.verifyProductDataInTheCart(expectedProduct[0], 0);
-      });
-    });
-    // Remove item from the cart
-    cart.getRemoveItemButton().eq(0).click();
-  });
 
   it("Total price should be correct after changing quantity to one of the 2 items in the cart", function () {
     // Get product list
@@ -394,10 +403,6 @@ describe("Tests which cover functionalities releated to cart", () => {
      // Open a cart
      productListPage.header.getCartIcon().click();
      cy.wait(1500)
-
-     // Open a cart
-    productListPage.header.getCartIcon().click();
-    cy.wait(1500);
 
     // Remove item from the cart
     cart.getRemoveItemButton().eq(0).click();

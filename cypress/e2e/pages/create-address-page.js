@@ -1,6 +1,6 @@
 import Header from "../components/header";
 
-export default class SelectAddress {
+export default class createAddress {
   constructor() {
     this.header = new Header();
   }
